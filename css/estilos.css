@@ -1,0 +1,612 @@
+/* =========================
+   VARIABLES GLOBALES
+========================= */
+:root {
+  --color-azul-oscuro: #035160;
+  --color-azul: #0097b2;
+  --color-azul-claro: #91d2de;
+  --color-blanco: #ffffff;
+  --color-gris-claro: #f4f4f4;
+
+  --fuente-principal: "Poppins", sans-serif;
+  --fuente-logo: "Great Vibes", cursive;
+}
+
+/* =========================
+   ESTILOS GENERALES
+========================= */
+body {
+  font-family: var(--fuente-principal);
+  background-color: var(--color-blanco);
+  color: var(--color-azul-oscuro);
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-azul-oscuro);
+}
+
+a:hover {
+  color: var(--color-azul);
+}
+
+/* Enlace de accesibilidad */
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+
+.skip-link:focus {
+  left: 10px;
+  top: 10px;
+  background-color: var(--color-azul);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+  background-color: var(--color-blanco);
+  border-bottom: 2px solid var(--color-azul-claro);
+  padding: 1rem 2rem;
+}
+
+/* Zona superior (logo + buscador) */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/*
+.logo {
+  font-family: var(--fuente-logo);
+  font-size: 2rem;
+  color: var(--color-azul);
+}*/
+
+.logo {
+  font-family: var(--fuente-logo);
+  font-size: 2rem;
+  color: var(--color-azul);
+  display: flex;
+  /* permite alinear texto o imagen */
+  align-items: center;
+  /* centra verticalmente con el buscador */
+  text-decoration: none;
+  /* quita el subrayado */
+}
+
+/* Si hay imagen dentro del logo */
+.logo img {
+  height: 85px;
+  /* ajusta el tamaño del logo */
+  width: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Efecto hover suave */
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+
+/* =========================
+   BARRA DE BÚSQUEDA CON BORDE DELGADO Y INPUT AMPLIO
+========================= */
+.search-bar {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-azul);
+  /* borde muy fino */
+  border-radius: 12px;
+  /* redondeado suave */
+  background-color: var(--color-blanco);
+  height: auto;
+  /* se ajusta al contenido */
+  padding: 2px;
+  /* pequeño padding para que el borde sea delgado */
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  max-width: 350px;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 6px 10px;
+  /* input más grande */
+  font-size: 0.9rem;
+  background: none;
+  color: var(--color-azul-oscuro);
+  height: 32px;
+  /* input más alto que el borde */
+  line-height: 1.2;
+  border-radius: 0;
+  /* sin bordes internos */
+}
+
+.search-bar input::placeholder {
+  color: var(--color-azul-claro);
+  font-style: italic;
+}
+
+.search-bar button {
+  background-color: var(--color-azul);
+  border: none;
+  color: var(--color-blanco);
+  font-size: 0.85rem;
+  padding: 0 12px;
+  height: 32px;
+  /* igual que el input */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background-color 0.3s;
+  border-radius: 0 12px 12px 0;
+  /* bordes redondeados solo derecha */
+}
+
+.search-bar button:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+
+/* =========================
+   BANDA AZUL DE NAVEGACIÓN
+========================= */
+.main-nav {
+  background-color: var(--color-azul);
+  display: flex;
+  justify-content: center;
+  /* Centra horizontalmente los enlaces */
+  align-items: center;
+  /* Centra verticalmente */
+  gap: 2rem;
+  /* Espacio entre enlaces */
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+}
+
+/* Logo dentro de la banda azul */
+.logo-blanco img {
+  height: 55px;
+  width: auto;
+  display: block;
+}
+
+/* Enlaces del menú */
+.main-nav a {
+  color: var(--color-blanco);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.main-nav a:hover {
+  color: var(--color-amarillo);
+  /* o #ffcc00 */
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .main-nav {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .logo-blanco {
+    margin-bottom: 0.5rem;
+  }
+}
+
+
+/* =========================
+   NAVEGACIÓN INFERIOR
+========================= */
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--color-azul);
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  background-color: var(--color-azul);
+  padding: 0.7rem 0;
+  border-radius: 6px;
+}
+
+.main-nav a {
+  color: var(--color-blanco);
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 0.4rem 0.6rem;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 4px;
+}
+
+.main-nav a:hover {
+  background-color: var(--color-azul-claro);
+  color: var(--color-azul-oscuro);
+}
+
+
+/* =========================
+   BOTONES GENERALES
+========================= */
+.btn {
+  border: 2px solid var(--color-azul);
+  background-color: transparent;
+  color: var(--color-azul);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: var(--color-azul);
+  color: var(--color-blanco);
+}
+
+.btn-primary {
+  background-color: var(--color-azul);
+  color: var(--color-blanco);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   SECCIÓN PRINCIPAL
+========================= */
+main {
+  padding: 2rem;
+}
+
+main h2 {
+  margin-bottom: 1.5rem;
+  color: var(--color-azul-oscuro);
+}
+
+/* GRID DE ANUNCIOS */
+.anuncios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.anuncio {
+  background-color: var(--color-azul-claro);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.anuncio img {
+  width: 100%;
+  height: 150px;
+  background-color: var(--color-azul);
+  border-radius: 4px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.anuncio a {
+  color: var(--color-azul-oscuro);
+  font-weight: 500;
+}
+
+.anuncio a:hover {
+  color: var(--color-azul);
+}
+
+/* =========================
+   BOTÓN PUBLICAR
+========================= */
+.publicar-btn {
+  display: inline-block;
+  float: right;
+  background-color: var(--color-azul);
+  color: var(--color-blanco);
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.publicar-btn:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+form {
+  max-width: 400px;
+  margin: 2rem auto;
+  background-color: var(--color-gris-claro);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  color: var(--color-azul-oscuro);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--color-azul-claro);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-family: var(--fuente-principal);
+}
+
+input[type="submit"],
+button[type="submit"],
+input[type="reset"],
+button[type="reset"] {
+  background-color: var(--color-azul);
+  color: var(--color-blanco);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover,
+input[type="reset"]:hover,
+button[type="reset"]:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background-color: var(--color-azul-oscuro);
+  color: var(--color-blanco);
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* Móviles y tablets */
+@media screen and (max-width: 768px) {
+
+  /* --- Estructura del header --- */
+  .top-header {
+    flex-direction: column;
+    /* logo arriba, resto abajo */
+    align-items: center;
+    /* centra el contenido */
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  /* Logo centrado arriba */
+  .logo {
+    order: 1;
+    justify-content: center;
+  }
+
+  /* Contenedor para buscador + usuario en la misma fila */
+  .search-user-row {
+    display: flex;
+    justify-content: space-between;
+    /* buscador a la izq, usuario a la dcha */
+    align-items: center;
+    width: 90%;
+    max-width: 360px;
+    order: 2;
+    gap: 0.5rem;
+  }
+
+  /* Ajuste del buscador en móvil */
+  .search-user-row .search-bar {
+    flex: 1;
+    max-width: none;
+  }
+
+  /* Icono de usuario */
+  .search-user-row a[href="menu.html"] {
+    font-size: 1.6rem;
+    color: var(--color-azul);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-user-row a[href="menu.html"]:hover {
+    color: var(--color-azul-oscuro);
+  }
+
+  /* --- Menú hamburguesa --- */
+  .menu-icon {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--color-azul);
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-azul);
+    width: 100%;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .menu-toggle:checked+.menu-icon+.main-nav {
+    display: flex;
+  }
+
+  .main-nav a {
+    color: var(--color-blanco);
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .main-nav a:hover {
+    background-color: var(--color-azul-claro);
+    color: var(--color-azul-oscuro);
+  }
+
+  /* --- Otros ajustes responsivos --- */
+  .anuncios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    width: 90%;
+  }
+}
+
+/* Tablets medianas a grandes */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .anuncios-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .search-bar input {
+    width: 180px;
+  }
+}
+
+
+/* =========================
+   TABLA DE TARIFAS
+========================= */
+table {
+  border-collapse: collapse;
+  /* une los bordes */
+  margin-right: 0;
+  width: 40%;
+  background-color: var(--color-blanco);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--color-azul-claro);
+  border-radius: 6px;
+}
+
+caption {
+  caption-side: top;
+  font-weight: 600;
+  color: var(--color-azul-oscuro);
+  padding: 0.5rem;
+  font-size: 1.1rem;
+}
+
+th,
+td {
+  border: 1px solid var(--color-azul-claro);
+  padding: 0.7rem;
+  text-align: center;
+  color: var(--color-azul-oscuro);
+}
+
+thead {
+  background-color: var(--color-azul-claro);
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--color-gris-claro);
+}
+
+/* =========================
+   MENÚ DE USUARIO
+========================= */
+.menu-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  min-height: 70vh;
+}
+
+.menu-container h1 {
+  color: var(--color-azul-oscuro);
+  margin-bottom: 1rem;
+}
+
+.menu-container p {
+  color: var(--color-azul);
+  margin-bottom: 2rem;
+}
+
+.menu-botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.menu-botones .btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  background-color: var(--color-azul);
+  color: var(--color-blanco);
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.menu-botones .btn:hover {
+  background-color: var(--color-azul-oscuro);
+  transform: translateY(-2px);
+}
+
+.btn.salir {
+  background-color: #d9534f;
+  border: none;
+}
+
+.btn.salir:hover {
+  background-color: #b52b27;
+}

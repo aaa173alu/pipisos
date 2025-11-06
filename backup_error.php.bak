@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Error</title>
+</head>
+<body>
+  <h1>Error de acceso</h1>
+  <p>No puedes acceder al detalle del anuncio si no estás registrado.</p>
+  <a href="resultados.html">Volver a resultados</a>
+</body>
+</html>

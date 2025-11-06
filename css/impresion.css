@@ -1,0 +1,191 @@
+/* =========================
+   MODO IMPRESIÓN
+   Basado en el diseño principal
+   Autor: Antonio Alfaro y Laura Lillo
+========================= */
+
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+
+@page {
+  margin: 2cm;
+}
+
+body {
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-family: "Poppins", sans-serif;
+  font-size: 12pt;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Quitar colores, sombras y decoraciones */
+* {
+  background: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* =========================
+   ELEMENTOS A MOSTRAR / OCULTAR
+========================= */
+
+/* Ocultar elementos no relevantes en impresión */
+header,
+footer,
+.main-nav,
+.search-bar,
+.menu-icon,
+.menu-toggle,
+.publicar-btn,
+.logo img,
+button,
+.btn,
+.menu-botones {
+  display: none !important;
+}
+
+/* Mostrar solo el contenido relevante */
+main {
+  display: block;
+  width: 100%;
+}
+
+/* =========================
+   TITULOS Y TEXTOS
+========================= */
+
+h1, h2, h3, h4, h5, h6 {
+  color: #000 !important;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+  page-break-after: avoid;
+}
+
+p {
+  margin-bottom: 0.8rem;
+}
+
+/* Enlaces: mostrar la URL después del texto */
+a::after {
+  content: " (" attr(href) ")";
+  font-size: 10pt;
+  color: #555;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+/* =========================
+   TABLAS
+========================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #000;
+}
+
+caption {
+  caption-side: top;
+  font-weight: bold;
+  text-align: left;
+  font-size: 12pt;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+th,
+td {
+  border: 1px solid #000;
+  padding: 6px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+thead {
+  background: #f0f0f0 !important;
+  font-weight: bold;
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+
+form {
+  background: none;
+  border: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+label {
+  color: #000;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
+  padding: 6px;
+  border-radius: 0;
+}
+
+/* Botones no se imprimen */
+input[type="submit"],
+input[type="reset"],
+button {
+  display: none !important;
+}
+
+/* =========================
+   IMÁGENES Y ANUNCIOS
+========================= */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.anuncio {
+  border: 1px solid #000;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: none;
+  page-break-inside: avoid;
+}
+
+/* =========================
+   DIVISIONES ENTRE SECCIONES
+========================= */
+
+hr {
+  border: none;
+  border-top: 1px solid #000;
+  margin: 1rem 0;
+}
+
+/* =========================
+   SALTO DE PÁGINA AUTOMÁTICO
+========================= */
+
+section, article {
+  page-break-inside: avoid;
+}
+
+main, form, table {
+  page-break-after: auto;
+}
+

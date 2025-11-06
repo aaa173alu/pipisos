@@ -1,0 +1,132 @@
+/* =========================================================
+   ESTILOS DE VALIDACIÓN Y TABLA DE TARIFAS
+   Autor: Antonio Alfaro Aparicio y Laura Lillo
+   Práctica 6 - DAW
+========================================================= */
+
+/* === Animación de error (temblor) === */
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* === Campos con error === */
+.input-error {
+  border: 2px solid #d9534f !important;
+  background-color: #fdeaea;
+  outline: none;
+  animation: shakeError 0.4s ease-in-out;
+  box-shadow: 0 0 8px rgba(213, 83, 79, 0.3);
+}
+
+.input-error:focus {
+  border-color: #b52b27 !important;
+  background-color: #fbdcdc;
+  box-shadow: 0 0 12px rgba(213, 83, 79, 0.5);
+}
+
+/* === Placeholder de error (rojo atenuado) === */
+.input-error::placeholder {
+  color: #b33a3a;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* === Placeholder normal === */
+input::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+/* === Bloque de mensajes de error === */
+.error-list {
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.error-list ul {
+  list-style-type: disc;
+  padding-left: 22px;
+  margin: 0;
+}
+
+.error-list li {
+  margin: 4px 0;
+  font-weight: 500;
+}
+
+/* === Botón Mostrar/Ocultar tarifas === */
+#toggleTarifas {
+  display: inline-block;
+  background-color: #337ab7;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin-top: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#toggleTarifas:hover {
+  background-color: #286090;
+}
+
+/* === Tabla de tarifas dinámica === */
+#tarifasContainer table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 12px;
+  background-color: #fafafa;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#tarifasContainer caption {
+  caption-side: top;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+#tarifasContainer th,
+#tarifasContainer td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+#tarifasContainer th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+}
+
+#tarifasContainer tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+/* === Transiciones suaves === */
+#tarifasContainer,
+.error-list,
+.input-error {
+  transition: all 0.25s ease-in-out;
+}
+
+/* === Adaptabilidad === */
+@media (max-width: 600px) {
+  #tarifasContainer table {
+    font-size: 0.9rem;
+  }
+  .error-list {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+}

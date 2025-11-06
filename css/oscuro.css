@@ -1,0 +1,533 @@
+/* =========================
+   MODO OSCURO
+   Basado en el diseño principal
+   Autores: Antonio Alfaro Aparicio y Laura Lillo
+========================= */
+
+/* =========================
+   VARIABLES GLOBALES
+========================= */
+:root {
+  --color-azul-oscuro: #00a5bd;
+  --color-azul: #00c2e0;
+  --color-azul-claro: #56d3e8;
+  --color-blanco: #f4f4f4;
+  --color-gris-claro: #1a3b46;
+  --color-fondo: #021E26;
+  --color-fondo-secundario: #03343E;
+
+  --fuente-principal: "Poppins", sans-serif;
+  --fuente-logo: "Great Vibes", cursive;
+}
+
+/* =========================
+   ESTILOS GENERALES
+========================= */
+body {
+  font-family: var(--fuente-principal);
+  background-color: var(--color-fondo);
+  color: var(--color-blanco);
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-azul-claro);
+}
+
+a:hover {
+  color: var(--color-blanco);
+}
+
+/* Enlace de accesibilidad */
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+
+.skip-link:focus {
+  left: 10px;
+  top: 10px;
+  background-color: var(--color-azul);
+  color: var(--color-fondo);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+  background-color: var(--color-fondo-secundario);
+  border-bottom: 2px solid var(--color-azul);
+  padding: 1rem 2rem;
+}
+
+/* Zona superior (logo + buscador) */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo {
+  font-family: var(--fuente-logo);
+  font-size: 2rem;
+  color: var(--color-azul-claro);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* LOGO oscuro */
+.logo img {
+  content: url("../img/logo-neg.svg");
+  height: 85px;
+  width: auto;
+  display: block;
+  transition: transform 0.3s ease, filter 0.3s;
+  filter: brightness(0.9);
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* =========================
+   BARRA DE BÚSQUEDA
+========================= */
+.search-bar {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-azul);
+  border-radius: 12px;
+  background-color: var(--color-fondo-secundario);
+  height: auto;
+  padding: 2px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+  max-width: 350px;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  background: none;
+  color: var(--color-blanco);
+  height: 32px;
+  line-height: 1.2;
+  border-radius: 0;
+}
+
+.search-bar input::placeholder {
+  color: var(--color-azul-claro);
+  font-style: italic;
+}
+
+.search-bar button {
+  background-color: var(--color-azul);
+  border: none;
+  color: var(--color-fondo);
+  font-size: 0.85rem;
+  padding: 0 12px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background-color 0.3s;
+  border-radius: 0 12px 12px 0;
+}
+
+.search-bar button:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--color-azul-claro);
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  background-color: var(--color-azul-oscuro);
+  padding: 0.7rem 0;
+  border-radius: 6px;
+}
+
+.main-nav a {
+  color: var(--color-blanco);
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 0.4rem 0.6rem;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 4px;
+}
+
+.main-nav a:hover {
+  background-color: var(--color-azul);
+  color: var(--color-fondo);
+}
+
+/* =========================
+   BOTONES GENERALES
+========================= */
+.btn {
+  border: 2px solid var(--color-azul);
+  background-color: transparent;
+  color: var(--color-azul-claro);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: var(--color-azul);
+  color: var(--color-fondo);
+}
+
+.btn-primary {
+  background-color: var(--color-azul);
+  color: var(--color-fondo);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   SECCIÓN PRINCIPAL
+========================= */
+main {
+  padding: 2rem;
+}
+
+main h2 {
+  margin-bottom: 1.5rem;
+  color: var(--color-azul-claro);
+}
+
+/* GRID DE ANUNCIOS */
+.anuncios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.anuncio {
+  background-color: var(--color-gris-claro);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.08);
+}
+
+.anuncio img {
+  width: 100%;
+  height: 150px;
+  background-color: var(--color-azul);
+  border-radius: 4px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.anuncio a {
+  color: var(--color-azul-claro);
+  font-weight: 500;
+}
+
+.anuncio a:hover {
+  color: var(--color-azul);
+}
+
+/* =========================
+   BOTÓN PUBLICAR
+========================= */
+.publicar-btn {
+  display: inline-block;
+  float: right;
+  background-color: var(--color-azul);
+  color: var(--color-fondo);
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.publicar-btn:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+form {
+  max-width: 400px;
+  margin: 2rem auto;
+  background-color: var(--color-fondo-secundario);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  color: var(--color-azul-claro);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--color-azul);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-family: var(--fuente-principal);
+  background-color: #012830;
+  color: var(--color-blanco);
+}
+
+input[type="submit"],
+button[type="submit"],
+input[type="reset"],
+button[type="reset"] {
+  background-color: var(--color-azul);
+  color: var(--color-fondo);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover,
+input[type="reset"]:hover,
+button[type="reset"]:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background-color: var(--color-fondo-secundario);
+  color: var(--color-azul-claro);
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+/* =========================
+   TABLA DE TARIFAS
+========================= */
+table {
+  border-collapse: collapse;
+  width: 40%;
+  background-color: var(--color-fondo-secundario);
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--color-azul);
+  border-radius: 6px;
+}
+
+caption {
+  caption-side: top;
+  font-weight: 600;
+  color: var(--color-azul-claro);
+  padding: 0.5rem;
+  font-size: 1.1rem;
+}
+
+th, td {
+  border: 1px solid var(--color-azul);
+  padding: 0.7rem;
+  text-align: center;
+  color: var(--color-blanco);
+}
+
+thead {
+  background-color: var(--color-azul-oscuro);
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--color-gris-claro);
+}
+
+/* =========================
+   MENÚ DE USUARIO
+========================= */
+.menu-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  min-height: 70vh;
+}
+
+.menu-container h1 {
+  color: var(--color-azul-claro);
+  margin-bottom: 1rem;
+}
+
+.menu-container p {
+  color: var(--color-azul);
+  margin-bottom: 2rem;
+}
+
+.menu-botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.menu-botones .btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  background-color: var(--color-azul);
+  color: var(--color-fondo);
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.menu-botones .btn:hover {
+  background-color: var(--color-azul-oscuro);
+  transform: translateY(-2px);
+}
+
+.btn.salir {
+  background-color: #d9534f;
+  border: none;
+}
+
+.btn.salir:hover {
+  background-color: #b52b27;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* Móviles y tablets */
+@media screen and (max-width: 768px) {
+
+  .top-header {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .logo {
+    order: 1;
+    justify-content: center;
+  }
+
+  .search-user-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 360px;
+    order: 2;
+    gap: 0.5rem;
+  }
+
+  .search-user-row .search-bar {
+    flex: 1;
+    max-width: none;
+  }
+
+  .search-user-row a[href="menu.html"] {
+    font-size: 1.6rem;
+    color: var(--color-azul-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-user-row a[href="menu.html"]:hover {
+    color: var(--color-azul);
+  }
+
+  .menu-icon {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--color-azul-claro);
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-azul-oscuro);
+    width: 100%;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .menu-toggle:checked + .menu-icon + .main-nav {
+    display: flex;
+  }
+
+  .main-nav a {
+    color: var(--color-blanco);
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .main-nav a:hover {
+    background-color: var(--color-azul);
+    color: var(--color-fondo);
+  }
+
+  .anuncios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    width: 90%;
+  }
+}
+
+/* Tablets medianas a grandes */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .anuncios-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .search-bar input {
+    width: 180px;
+  }
+}

@@ -1,0 +1,394 @@
+/* =========================
+   MODO ACCESIBLE: ALTO CONTRASTE + LETRAS GRANDES
+   Basado en el diseño principal
+   Autor: Antonio Alfaro y Laura Lillo
+========================= */
+
+/* =========================
+   VARIABLES GLOBALES
+========================= */
+:root {
+  --color-fondo: #000000;
+  --color-principal: #ffff00; /* Amarillo brillante */
+  --color-secundario: #00ffff; /* Cian brillante para resaltar */
+  --color-texto: #ffffff;
+  --color-gris-claro: #222222;
+  --color-blanco: #ffffff;
+
+  --fuente-principal: "Poppins", sans-serif;
+  --fuente-logo: "Great Vibes", cursive;
+}
+
+/* =========================
+   ESTILOS GENERALES
+========================= */
+body {
+  font-family: var(--fuente-principal);
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  margin: 0;
+  padding: 0;
+  font-size: 1.25em; /* texto más grande */
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: var(--color-principal);
+  text-transform: uppercase;
+}
+
+p, li, a, td, th, label, input, button {
+  font-size: 1.2em;
+}
+
+/* Enlaces visibles y accesibles */
+a {
+  text-decoration: underline;
+  color: var(--color-secundario);
+  font-weight: bold;
+}
+
+a:hover {
+  color: var(--color-principal);
+}
+
+/* Enlace de accesibilidad */
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+
+.skip-link:focus {
+  left: 10px;
+  top: 10px;
+  background-color: var(--color-principal);
+  color: #000;
+  padding: 0.7rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+  background-color: var(--color-fondo);
+  border-bottom: 3px solid var(--color-principal);
+  padding: 1.5rem 2rem;
+}
+
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.logo {
+  font-family: var(--fuente-logo);
+  font-size: 2.2rem;
+  color: var(--color-principal);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* ====== LOGO ACCESIBLE ====== */
+.logo img {
+  height: 90px;
+  filter: brightness(2) contrast(1.5);
+  transition: transform 0.3s;
+  content: url("../img/logo-con.svg"); /* Logo alternativo en modo accesible */
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   BARRA DE BÚSQUEDA
+========================= */
+.search-bar {
+  display: inline-flex;
+  align-items: center;
+  border: 3px solid var(--color-principal);
+  border-radius: 12px;
+  background-color: #000;
+  padding: 4px;
+  max-width: 400px;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  font-size: 1.1em;
+  background: none;
+  color: var(--color-texto);
+}
+
+.search-bar input::placeholder {
+  color: var(--color-secundario);
+}
+
+.search-bar button {
+  background-color: var(--color-principal);
+  border: none;
+  color: #000;
+  font-size: 1.1em;
+  padding: 0 16px;
+  height: 42px;
+  cursor: pointer;
+  border-radius: 0 12px 12px 0;
+  font-weight: bold;
+}
+
+.search-bar button:hover {
+  background-color: var(--color-secundario);
+}
+
+/* =========================
+   NAVEGACIÓN PRINCIPAL
+========================= */
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--color-principal);
+}
+
+.main-nav {
+  background-color: #000;
+  border-top: 3px solid var(--color-principal);
+  border-bottom: 3px solid var(--color-principal);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.main-nav a {
+  color: var(--color-texto);
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.2em;
+  border: 2px solid var(--color-principal);
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  transition: all 0.3s;
+  background-color: #000;
+}
+
+.main-nav a:hover {
+  background-color: var(--color-principal);
+  color: #000;
+}
+
+/* =========================
+   BOTONES
+========================= */
+.btn {
+  border: 3px solid var(--color-principal);
+  background-color: transparent;
+  color: var(--color-principal);
+  padding: 0.8rem 1.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.btn:hover {
+  background-color: var(--color-principal);
+  color: #000;
+}
+
+/* =========================
+   SECCIÓN PRINCIPAL
+========================= */
+main {
+  padding: 2.5rem;
+}
+
+main h2 {
+  color: var(--color-principal);
+  border-bottom: 2px solid var(--color-secundario);
+  margin-bottom: 1.5rem;
+  font-size: 1.6em;
+}
+
+.anuncios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.anuncio {
+  background-color: #111;
+  border: 2px solid var(--color-principal);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.anuncio img {
+  width: 100%;
+  height: 180px;
+  background-color: #000;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.anuncio a {
+  color: var(--color-secundario);
+  font-weight: bold;
+}
+
+.anuncio a:hover {
+  color: var(--color-principal);
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+form {
+  max-width: 500px;
+  margin: 2rem auto;
+  background-color: #000;
+  padding: 2rem;
+  border: 3px solid var(--color-principal);
+  border-radius: 10px;
+}
+
+label {
+  display: block;
+  color: var(--color-principal);
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+  font-size: 1.2em;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.9rem;
+  border: 2px solid var(--color-principal);
+  border-radius: 6px;
+  background-color: #111;
+  color: var(--color-texto);
+  font-size: 1.1em;
+  margin-bottom: 1rem;
+}
+
+input[type="submit"],
+button[type="submit"] {
+  background-color: var(--color-principal);
+  color: #000;
+  font-weight: bold;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 6px;
+  padding: 0.9rem 1.6rem;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+  background-color: var(--color-secundario);
+}
+
+/* =========================
+   TABLAS
+========================= */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #000;
+  border: 3px solid var(--color-principal);
+  margin-top: 2rem;
+}
+
+caption {
+  caption-side: top;
+  color: var(--color-principal);
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 0.5rem;
+}
+
+th, td {
+  border: 1px solid var(--color-principal);
+  padding: 0.8rem;
+  text-align: center;
+  color: var(--color-texto);
+  font-size: 1.1em;
+}
+
+thead {
+  background-color: var(--color-principal);
+  color: #000;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #111;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background-color: var(--color-fondo);
+  color: var(--color-principal);
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 1.1em;
+  border-top: 2px solid var(--color-principal);
+  margin-top: 3rem;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media screen and (max-width: 768px) {
+  .top-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .menu-icon {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .menu-toggle:checked + .menu-icon + .main-nav {
+    display: flex;
+  }
+
+  .main-nav a {
+    font-size: 1.2em;
+    padding: 0.8rem;
+  }
+
+  form {
+    width: 90%;
+  }
+}

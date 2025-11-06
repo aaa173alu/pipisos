@@ -1,0 +1,450 @@
+/* =========================
+   MODO ALTO CONTRASTE
+   Basado en el diseño principal
+   Autor: Antonio Alfaro y Laura Lillo
+========================= */
+
+/* =========================
+   VARIABLES GLOBALES
+========================= */
+:root {
+  --color-fondo: #000000;
+  --color-principal: #ffff00; /* Amarillo brillante */
+  --color-secundario: #00ffff; /* Cian para resaltar */
+  --color-texto: #ffffff;
+  --color-gris-claro: #222222;
+  --color-blanco: #ffffff;
+
+  --fuente-principal: "Poppins", sans-serif;
+  --fuente-logo: "Great Vibes", cursive;
+}
+
+/* =========================
+   ESTILOS GENERALES
+========================= */
+body {
+  font-family: var(--fuente-principal);
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: underline;
+  color: var(--color-secundario);
+  font-weight: bold;
+}
+
+a:hover {
+  color: var(--color-principal);
+}
+
+/* Enlace de accesibilidad */
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+
+.skip-link:focus {
+  left: 10px;
+  top: 10px;
+  background-color: var(--color-principal);
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+  background-color: var(--color-fondo);
+  border-bottom: 3px solid var(--color-principal);
+  padding: 1rem 2rem;
+}
+
+/* Zona superior (logo + buscador) */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* =========================
+   LOGO ACCESIBLE
+========================= */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 85px;
+  width: auto;
+  display: block;
+  transition: transform 0.3s;
+  filter: brightness(2) contrast(1.5);
+  content: url("../img/logo-con.svg"); /* logo alternativo contraste */
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   BARRA DE BÚSQUEDA
+========================= */
+.search-bar {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--color-principal);
+  border-radius: 12px;
+  background-color: #000;
+  padding: 2px;
+  max-width: 350px;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 6px 10px;
+  font-size: 1rem;
+  background: none;
+  color: var(--color-texto);
+}
+
+.search-bar input::placeholder {
+  color: var(--color-secundario);
+  font-style: italic;
+}
+
+.search-bar button {
+  background-color: var(--color-principal);
+  border: none;
+  color: #000;
+  font-size: 1rem;
+  padding: 0 12px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 12px 12px 0;
+  font-weight: bold;
+}
+
+.search-bar button:hover {
+  background-color: var(--color-secundario);
+}
+
+/* =========================
+   NAVEGACIÓN PRINCIPAL
+========================= */
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--color-principal);
+}
+
+.main-nav {
+  background-color: var(--color-fondo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.8rem 2rem;
+  border-top: 3px solid var(--color-principal);
+  border-bottom: 3px solid var(--color-principal);
+  border-radius: 8px;
+}
+
+.main-nav a {
+  color: var(--color-texto);
+  text-transform: uppercase;
+  font-weight: bold;
+  border: 2px solid var(--color-principal);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  background-color: #000;
+  transition: all 0.3s;
+}
+
+.main-nav a:hover {
+  background-color: var(--color-principal);
+  color: #000;
+}
+
+/* =========================
+   BOTONES GENERALES
+========================= */
+.btn {
+  border: 2px solid var(--color-principal);
+  background-color: transparent;
+  color: var(--color-principal);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: var(--color-principal);
+  color: #000;
+}
+
+.btn-primary {
+  background-color: var(--color-principal);
+  color: #000;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secundario);
+}
+
+/* =========================
+   SECCIÓN PRINCIPAL
+========================= */
+main {
+  padding: 2rem;
+}
+
+main h2 {
+  margin-bottom: 1.5rem;
+  color: var(--color-principal);
+  border-bottom: 2px solid var(--color-principal);
+  text-transform: uppercase;
+}
+
+/* GRID DE ANUNCIOS */
+.anuncios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.anuncio {
+  background-color: var(--color-gris-claro);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 2px solid var(--color-principal);
+}
+
+.anuncio img {
+  width: 100%;
+  height: 150px;
+  background-color: #111;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.anuncio a {
+  color: var(--color-secundario);
+  font-weight: bold;
+}
+
+.anuncio a:hover {
+  color: var(--color-principal);
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+form {
+  max-width: 400px;
+  margin: 2rem auto;
+  background-color: #000;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 2px solid var(--color-principal);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+  color: var(--color-principal);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 2px solid var(--color-principal);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  background-color: #111;
+  color: var(--color-texto);
+}
+
+input[type="submit"],
+button[type="submit"] {
+  background-color: var(--color-principal);
+  color: #000;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+  background-color: var(--color-secundario);
+}
+
+/* =========================
+   TABLAS
+========================= */
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+  border: 2px solid var(--color-principal);
+}
+
+caption {
+  caption-side: top;
+  font-weight: bold;
+  color: var(--color-principal);
+  padding: 0.5rem;
+  font-size: 1.1rem;
+}
+
+th,
+td {
+  border: 1px solid var(--color-principal);
+  padding: 0.7rem;
+  text-align: center;
+  color: var(--color-texto);
+}
+
+thead {
+  background-color: var(--color-principal);
+  color: #000;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #111;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background-color: var(--color-fondo);
+  color: var(--color-principal);
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-top: 2px solid var(--color-principal);
+}
+
+/* =========================
+   MENÚ DE USUARIO
+========================= */
+.menu-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  min-height: 70vh;
+}
+
+.menu-container h1 {
+  color: var(--color-principal);
+  margin-bottom: 1rem;
+}
+
+.menu-container p {
+  color: var(--color-secundario);
+  margin-bottom: 2rem;
+}
+
+.menu-botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.menu-botones .btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  background-color: var(--color-principal);
+  color: #000;
+  font-weight: 700;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.menu-botones .btn:hover {
+  background-color: var(--color-secundario);
+  transform: translateY(-2px);
+}
+
+.btn.salir {
+  background-color: #ff0000;
+  border: none;
+}
+
+.btn.salir:hover {
+  background-color: #cc0000;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media screen and (max-width: 768px) {
+  .top-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .menu-icon {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .menu-toggle:checked + .menu-icon + .main-nav {
+    display: flex;
+  }
+
+  .main-nav a {
+    width: 100%;
+    text-align: center;
+    padding: 0.8rem;
+  }
+
+  .anuncios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    width: 90%;
+  }
+}

@@ -1,0 +1,337 @@
+/* =========================
+   MODO ACCESIBLE: LETRA GRANDE
+   Respeta estructura HEADER–MAIN–FOOTER
+   Basado en estilos.css de Antonio y Laura
+========================= */
+
+/* =========================
+   VARIABLES GLOBALES
+========================= */
+:root {
+  --color-azul-oscuro: #035160;
+  --color-azul: #0097b2;
+  --color-azul-claro: #91d2de;
+  --color-blanco: #ffffff;
+  --color-gris-claro: #f4f4f4;
+
+  --fuente-principal: "Poppins", sans-serif;
+  --fuente-logo: "Great Vibes", cursive;
+
+  --tamano-base: 1.25rem; /* texto general más grande */
+  --tamano-h1: 2.4rem;
+  --tamano-h2: 2rem;
+  --tamano-h3: 1.6rem;
+}
+
+/* =========================
+   ESTILOS GENERALES
+========================= */
+body {
+  font-family: var(--fuente-principal);
+  background-color: var(--color-blanco);
+  color: var(--color-azul-oscuro);
+  margin: 0;
+  padding: 0;
+  font-size: var(--tamano-base);
+  line-height: 1.8;
+}
+
+a {
+  text-decoration: underline;
+  color: var(--color-azul-oscuro);
+  font-weight: 600;
+}
+
+a:hover {
+  color: var(--color-azul);
+}
+
+/* Enlace de accesibilidad */
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+
+.skip-link:focus {
+  left: 10px;
+  top: 10px;
+  background-color: var(--color-azul);
+  color: var(--color-blanco);
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+  background-color: var(--color-blanco);
+  border-bottom: 3px solid var(--color-azul-claro);
+  padding: 1.5rem 2rem;
+}
+
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.logo {
+  font-family: var(--fuente-logo);
+  font-size: var(--tamano-h1);
+  color: var(--color-azul);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 95px;
+  width: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   BARRA DE BÚSQUEDA
+========================= */
+.search-bar {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--color-azul);
+  border-radius: 12px;
+  background-color: var(--color-blanco);
+  padding: 4px;
+  max-width: 400px;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  font-size: 1.1rem;
+  background: none;
+  color: var(--color-azul-oscuro);
+}
+
+.search-bar input::placeholder {
+  color: var(--color-azul-claro);
+}
+
+.search-bar button {
+  background-color: var(--color-azul);
+  border: none;
+  color: var(--color-blanco);
+  font-size: 1rem;
+  padding: 0 16px;
+  height: 42px;
+  cursor: pointer;
+  border-radius: 0 12px 12px 0;
+  font-weight: bold;
+}
+
+.search-bar button:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   MENÚ DE NAVEGACIÓN (BANDA AZUL)
+========================= */
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--color-azul);
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  background-color: var(--color-azul);
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.main-nav a {
+  color: var(--color-blanco);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.main-nav a:hover {
+  background-color: var(--color-azul-claro);
+  color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   BOTONES
+========================= */
+.btn {
+  border: 3px solid var(--color-azul);
+  background-color: transparent;
+  color: var(--color-azul);
+  padding: 0.7rem 1.3rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: var(--color-azul);
+  color: var(--color-blanco);
+}
+
+/* =========================
+   MAIN
+========================= */
+main {
+  padding: 2.5rem;
+}
+
+main h2 {
+  font-size: var(--tamano-h2);
+  margin-bottom: 2rem;
+  color: var(--color-azul-oscuro);
+}
+
+.anuncios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.anuncio {
+  background-color: var(--color-azul-claro);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.anuncio img {
+  width: 100%;
+  height: 180px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+form {
+  max-width: 500px;
+  margin: 3rem auto;
+  background-color: var(--color-gris-claro);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--color-azul-oscuro);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.9rem;
+  border: 2px solid var(--color-azul-claro);
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+input[type="submit"],
+button[type="submit"] {
+  background-color: var(--color-azul);
+  color: var(--color-blanco);
+  border: none;
+  padding: 0.9rem 1.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+  background-color: var(--color-azul-oscuro);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background-color: var(--color-azul-oscuro);
+  color: var(--color-blanco);
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 3rem;
+  font-size: 1.1rem;
+}
+
+/* =========================
+   RESPONSIVE CON SÁNDWICH
+========================= */
+@media screen and (max-width: 768px) {
+  .top-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .menu-icon {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+    color: var(--color-azul);
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    background-color: var(--color-azul);
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  .menu-toggle:checked + .menu-icon + .main-nav {
+    display: flex;
+  }
+
+  .main-nav a {
+    font-size: 1.2rem;
+    padding: 0.8rem;
+  }
+
+  .anuncios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    width: 90%;
+  }
+}
