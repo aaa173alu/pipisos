@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Lectura de cookie para "recordarme" si no se ha enviado el formulario
 $userValue = '';
 $passValue = '';
 $userError = false;
