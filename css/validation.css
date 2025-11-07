@@ -129,4 +129,10 @@ input::placeholder {
     font-size: 0.9rem;
     padding: 10px 12px;
   }
+
+   .error-field {
+  color: #842029;
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
 }
