@@ -70,9 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($fecha === '') {
         $errors['fecha'] = 'Completa este campo.';
     } else {
+        // Validación robusta sin acceder a indices de un booleano
         $dob = DateTime::createFromFormat('Y-m-d', $fecha);
-        $dob_errors = DateTime::getLastErrors();
-        if ($dob === false || $dob_errors['warning_count'] > 0 || $dob_errors['error_count'] > 0) {
+        // comprobar que la fecha creada coincide exactamente con la entrada (evita 2025-02-31 => 2025-03-03)
+        $validDate = $dob && $dob->format('Y-m-d') === $fecha;
+        if (!$validDate) {
             $errors['fecha'] = 'Formato de fecha inválido.';
         } else {
             $hoy = new DateTime('now');
