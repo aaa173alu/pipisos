@@ -1,4 +1,5 @@
 <?php
+// registro.php — validación en servidor y errores inline por campo (sin JavaScript)
 $title = "Registro - PI";
 require_once __DIR__ . '/inc/header.php';
 require_once __DIR__ . '/inc/menu.php';
@@ -31,15 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'pais' => $pais
     ];
 
-    // Validaciones por campo (personaliza mensajes/reglas si lo deseas)
+    // Requisito: completar todos los campos (todos obligatorios)
     if ($usuario === '') {
-        $errors['usuario'] = 'El nombre de usuario es obligatorio.';
+        $errors['usuario'] = 'Completa este campo.';
     } elseif (mb_strlen($usuario) < 3) {
         $errors['usuario'] = 'El nombre de usuario debe tener al menos 3 caracteres.';
     }
 
     if ($clave === '') {
-        $errors['clave'] = 'La contraseña es obligatoria.';
+        $errors['clave'] = 'Completa este campo.';
     } elseif (strlen($clave) < 6) {
         $errors['clave'] = 'La contraseña debe tener al menos 6 caracteres.';
     } elseif (!preg_match('/[A-Za-z]/', $clave) || !preg_match('/\d/', $clave)) {
@@ -47,36 +48,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($clave2 === '') {
-        $errors['clave2'] = 'Repite la contraseña.';
+        $errors['clave2'] = 'Completa este campo.';
     } elseif ($clave !== $clave2) {
         $errors['clave2'] = 'Las contraseñas no coinciden.';
     }
 
     if ($email === '') {
-        $errors['email'] = 'El correo electrónico es obligatorio.';
+        $errors['email'] = 'Completa este campo.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Formato de correo inválido.';
     }
 
-    $allowed_sexo = ['hombre','mujer','otro',''];
-    if (!in_array($sexo, $allowed_sexo, true)) {
+    $allowed_sexo = ['hombre','mujer','otro'];
+    if ($sexo === '') {
+        $errors['sexo'] = 'Selecciona una opción.';
+    } elseif (!in_array($sexo, $allowed_sexo, true)) {
         $errors['sexo'] = 'Opción de sexo inválida.';
     }
 
-    if ($fecha !== '' && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha)) {
-        $errors['fecha'] = 'Formato de fecha inválido (AAAA-MM-DD).';
+    // Fecha obligatoria y comprobación de mayor de edad (>= 18)
+    if ($fecha === '') {
+        $errors['fecha'] = 'Completa este campo.';
+    } else {
+        $dob = DateTime::createFromFormat('Y-m-d', $fecha);
+        $dob_errors = DateTime::getLastErrors();
+        if ($dob === false || $dob_errors['warning_count'] > 0 || $dob_errors['error_count'] > 0) {
+            $errors['fecha'] = 'Formato de fecha inválido.';
+        } else {
+            $hoy = new DateTime('now');
+            $edad = $hoy->diff($dob)->y;
+            if ($edad < 18) {
+                $errors['fecha'] = 'Debes ser mayor de 18 años.';
+            }
+        }
     }
 
-    if ($ciudad !== '' && mb_strlen($ciudad) < 2) {
+    if ($ciudad === '') {
+        $errors['ciudad'] = 'Completa este campo.';
+    } elseif (mb_strlen($ciudad) < 2) {
         $errors['ciudad'] = 'Ciudad demasiado corta.';
     }
 
-    if ($pais !== '' && !in_array($pais, $countries, true)) {
+    if ($pais === '') {
+        $errors['pais'] = 'Selecciona un país.';
+    } elseif (!in_array($pais, $countries, true)) {
         $errors['pais'] = 'País no válido.';
     }
 
-    // Foto (opcional)
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] !== UPLOAD_ERR_NO_FILE) {
+    // Foto obligatoria: comprobar subida, tipo y tamaño
+    if (!isset($_FILES['foto']) || $_FILES['foto']['error'] === UPLOAD_ERR_NO_FILE) {
+        $errors['foto'] = 'Debes subir una foto.';
+    } else {
         if ($_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
             $errors['foto'] = 'Error al subir la foto.';
         } else {
@@ -97,19 +119,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Ejemplo mínimo: hash de contraseña (usa prepared statements para BD)
         $hash = password_hash($clave, PASSWORD_DEFAULT);
 
-        // Aquí deberías insertar en la BD y mover la foto si procede.
-        // Una vez registrado, puedes redirigir a login o mostrar confirmación:
-        ?>
-        <main>
-          <section class="registro">
-            <h1>Registro completado</h1>
-            <p>Usuario <?= htmlspecialchars($usuario) ?> registrado correctamente.</p>
-            <p><a href="/pipisos/login.php">Iniciar sesión</a></p>
-          </section>
-        </main>
-        <?php
-        require_once __DIR__ . '/inc/footer.php';
-        exit;
+        // Mover la foto a un directorio seguro (ejemplo básico; crea /uploads con permisos)
+        $uploadDir = __DIR__ . '/uploads';
+        if (!is_dir($uploadDir)) {
+            @mkdir($uploadDir, 0755, true);
+        }
+        $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+        $safeName = bin2hex(random_bytes(8)) . '.' . $ext;
+        $dest = $uploadDir . '/' . $safeName;
+        if (!move_uploaded_file($_FILES['foto']['tmp_name'], $dest)) {
+            // Si falla mover la imagen, registrar error (aunque ya habíamos validado)
+            $errors['foto'] = 'No se pudo guardar la foto. Intenta de nuevo.';
+        } else {
+            // Aquí insertar en BD: usuario, email, hash, sexo, fecha, ciudad, pais, ruta foto...
+            // Después mostrar confirmación o redirigir.
+            ?>
+            <main>
+              <section class="registro">
+                <h1>Registro completado</h1>
+                <p>Usuario <?= htmlspecialchars($usuario) ?> registrado correctamente.</p>
+                <p><a href="/pipisos/login.php">Iniciar sesión</a></p>
+              </section>
+            </main>
+            <?php
+            require_once __DIR__ . '/inc/footer.php';
+            exit;
+        }
     }
 }
 ?>
