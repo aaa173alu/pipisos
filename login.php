@@ -1,16 +1,28 @@
 <?php
 session_start();
 
+// Lectura de cookie para "recordarme" si no se ha enviado el formulario
 $userValue = '';
 $passValue = '';
 $userError = false;
 $passError = false;
 $errorMessages = [];
+$recordarChecked = false;
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    // Si existe cookie de recordar usuario, precargar el campo usuario
+    if (!empty($_COOKIE['recordar_usuario'])) {
+        // No confiar en la cookie sin sanear: la mostraremos usando htmlspecialchars al imprimir
+        $userValue = (string) $_COOKIE['recordar_usuario'];
+        $recordarChecked = true;
+    }
+} 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userValue = trim($_POST['user'] ?? '');
     $passValue = trim($_POST['pass'] ?? '');
     $recordar = isset($_POST['recordar']);
+    $recordarChecked = $recordar;
 
     if ($userValue === '') {
         $userError = true;
@@ -36,10 +48,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario'] = $userValue;
             $_SESSION['estilo'] = $usuarioEncontrado['estilo'];
 
+            // Preparar opciones seguras para setcookie
+            $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+            $cookieOptions = [
+                'expires' => time() + (90 * 24 * 60 * 60),
+                'path' => '/',
+                'secure' => $secure,
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ];
+
             if ($recordar) {
-                setcookie('recordar_usuario', $userValue, time() + (90 * 24 * 60 * 60), "/", "", false, true);
-                setcookie('recordar_estilo', $usuarioEncontrado['estilo'], time() + (90 * 24 * 60 * 60), "/", "", false, true);
-                setcookie('ultima_visita', date('d/m/Y H:i'), time() + (90 * 24 * 60 * 60), "/", "", false, true);
+                // Guardar solo el nombre de usuario y estilo (nunca la contraseña)
+                setcookie('recordar_usuario', $userValue, $cookieOptions);
+                setcookie('recordar_estilo', $usuarioEncontrado['estilo'], $cookieOptions);
+                // ultima_visita no necesita httponly necesariamente, pero lo volvemos httponly también
+                setcookie('ultima_visita', date('d/m/Y H:i'), $cookieOptions);
+            } else {
+                // Si no quiere recordar, eliminar cookies antiguas (si existen)
+                setcookie('recordar_usuario', '', ['expires' => time() - 3600, 'path' => '/', 'samesite' => 'Lax']);
+                setcookie('recordar_estilo', '', ['expires' => time() - 3600, 'path' => '/', 'samesite' => 'Lax']);
+                setcookie('ultima_visita', '', ['expires' => time() - 3600, 'path' => '/', 'samesite' => 'Lax']);
             }
 
             header('Location: /pipisos/index.php');
@@ -97,7 +126,7 @@ require_once __DIR__ . '/inc/menu.php';
       <br><br>
 
       <label>
-        <input type="checkbox" name="recordar" <?= isset($_POST['recordar']) ? 'checked' : '' ?>>
+        <input type="checkbox" name="recordar" <?= $recordarChecked ? 'checked' : '' ?>>
         Recordarme en este equipo
       </label>
       <br><br>
