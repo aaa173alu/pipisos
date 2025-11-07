@@ -1,5 +1,8 @@
 <?php
-$estilo = $_SESSION['estilo'] ?? $_COOKIE['recordar_estilo'] ?? 'estilos.css';
+// Aseguramos que la sesión está inicializada antes de leer $_SESSION
+require_once __DIR__ . '/config.php';
+// Estilo solo toma de sesión si el usuario está autenticado; fuera de sesión usamos el por defecto
+$estilo = isset($_SESSION['usuario']) ? ($_SESSION['estilo'] ?? 'estilos.css') : 'estilos.css';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -32,7 +35,7 @@ $estilo = $_SESSION['estilo'] ?? $_COOKIE['recordar_estilo'] ?? 'estilos.css';
                     <button type="submit"><span class="icon-search"></span>Buscar</button>
                 </form>
 
-                <a href="/pipisos/menu.php">
+                <a href="/pipisos/mi-perfil.php">
                     <span class="icon-user-o"></span>
                 </a>
             </div>

@@ -1,11 +1,19 @@
 <?php
 require_once __DIR__ . '/inc/config.php';
-session_start();
 
-// vaciar la sesión
+// Guardar mensaje flash en cookie temporal (la sesión se va a destruir)
+$secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+$flashOptions = [
+    'expires' => time() + 60, // Solo 60 segundos
+    'path' => '/',
+    'secure' => $secure,
+    'httponly' => false, // Necesario para leer en cliente si fuera preciso
+    'samesite' => 'Lax'
+];
+setcookie('flash_message', 'Has cerrado sesión correctamente', $flashOptions);
+
 $_SESSION = [];
 
-// eliminar cookie de sesión si procede
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"] ?? '', $params["secure"] ?? false, $params["httponly"] ?? false);
@@ -13,22 +21,20 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-// Eliminar cookies relacionadas con "recordarme" y estilo.
-// Usamos opciones compatibles con PHP >= 7.3 (array) y una eliminación segura.
-$delOptions = [
+$secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+$del = [
     'expires' => time() - 3600,
     'path' => '/',
-    'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+    'secure' => $secure,
     'httponly' => true,
     'samesite' => 'Lax'
 ];
 
-setcookie('recordar_usuario', '', $delOptions);
-setcookie('recordar_estilo', '', $delOptions);
-setcookie('ultima_visita', '', $delOptions);
-setcookie('ultimos_anuncios', '', $delOptions);
+// Al cerrar sesión explícitamente, eliminamos cookies persistentes para evitar auto-login
+setcookie('recordar_usuario', '', $del);
+setcookie('recordar_estilo', '', $del);
+setcookie('ultima_visita', '', $del);
+setcookie('ultimos_anuncios', '', $del);
 
-// Redirigir al inicio
 header('Location: /pipisos/');
 exit;
-?>

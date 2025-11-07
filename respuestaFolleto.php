@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__ . '/inc/config.php';
 
 // Si no viene por POST, volvemos al formulario
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

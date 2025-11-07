@@ -1,11 +1,16 @@
 <?php
+require_once __DIR__ . '/inc/config.php';
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location: /pipisos/login.php');
+    exit;
+}
 
 $title = "Mis anuncios - PI";
 require_once __DIR__ . '/inc/header.php';
 require_once __DIR__ . '/inc/menu.php';
 
-// Usuario cuya lista mostramos (por GET o por defecto demo)
-$user = trim($_GET['user'] ?? 'usuario1');
+$user = $_SESSION['usuario'];
 
 // Cargar anuncios
 $anuncios = [];
@@ -24,7 +29,7 @@ $mis = array_filter($anuncios, function ($a) use ($user) {
 
         <?php if (empty($mis)): ?>
             <p>No hay anuncios para este usuario.</p>
-            <p><a href="/pipisos/index-Log.php">Volver al menú</a></p>
+            <p><a href="/pipisos/index.php">Volver al menú</a></p>
         <?php else: ?>
             <ul class="anuncios-list">
                 <?php foreach ($mis as $a): ?>
@@ -43,7 +48,7 @@ $mis = array_filter($anuncios, function ($a) use ($user) {
                 <?php endforeach; ?>
             </ul>
 
-            <p><a href="/pipisos/index-Log.php">Volver al menú</a></p>
+            <p><a href="/pipisos/index.php">Volver al menú</a></p>
         <?php endif; ?>
     </section>
 </main>

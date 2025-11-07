@@ -2,9 +2,34 @@
 $title = "PI - Pisos & Inmuebles";
 require_once __DIR__ . '/inc/config.php';
 
+// Auto-login: Si hay cookie de "recordar" pero no hay sesión activa
 if (!isset($_SESSION['usuario']) && isset($_COOKIE['recordar_usuario'])) {
     $_SESSION['usuario'] = $_COOKIE['recordar_usuario'];
     $_SESSION['estilo'] = $_COOKIE['recordar_estilo'] ?? 'estilos.css';
+    // Marcar que fue auto-login para mostrar mensaje especial si quieres
+    $_SESSION['auto_login'] = true;
+}
+
+// Sistema de flashdata: capturar mensaje temporal
+$flashMessage = '';
+if (isset($_SESSION['flash_message'])) {
+    $flashMessage = $_SESSION['flash_message'];
+    unset($_SESSION['flash_message']);
+} elseif (isset($_COOKIE['flash_message'])) {
+    $flashMessage = $_COOKIE['flash_message'];
+    // Eliminar cookie flash inmediatamente
+    $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+    setcookie('flash_message', '', [
+        'expires' => time() - 3600,
+        'path' => '/',
+        'secure' => $secure,
+        'httponly' => false,
+        'samesite' => 'Lax'
+    ]);
+} elseif (isset($_SESSION['auto_login'])) {
+    // Mensaje especial si fue auto-login desde cookies
+    $flashMessage = '¡Bienvenido de nuevo! Has iniciado sesión automáticamente.';
+    unset($_SESSION['auto_login']);
 }
 
 $mensajeVisita = '';
@@ -14,7 +39,16 @@ if (isset($_SESSION['usuario'])) {
     } else {
         $mensajeVisita = "Bienvenido, es tu primera visita.";
     }
-    setcookie('ultima_visita', date('d/m/Y H:i'), time() + (90 * 24 * 60 * 60), "/", "", false, true);
+    
+    $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+    $cookieOptions = [
+        'expires' => time() + (90 * 24 * 60 * 60),
+        'path' => '/',
+        'secure' => $secure,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ];
+    setcookie('ultima_visita', date('d/m/Y H:i'), $cookieOptions);
 }
 
 $ultimosAnuncios = [];
@@ -28,6 +62,12 @@ require_once __DIR__ . '/inc/menu.php';
 ?>
 
 <main>
+    <?php if (!empty($flashMessage)): ?>
+    <section class="flash-message" style="background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+        <p><strong>✓</strong> <?= htmlspecialchars($flashMessage, ENT_QUOTES, 'UTF-8') ?></p>
+    </section>
+    <?php endif; ?>
+
     <section>
         <?php if (isset($_SESSION['usuario'])): ?>
             <h2>Bienvenido, <?= htmlspecialchars($_SESSION['usuario']) ?></h2>
@@ -44,15 +84,15 @@ require_once __DIR__ . '/inc/menu.php';
         <div class="anuncios-grid">
             <article class="anuncio">
                 <a href="detalle.php?id=1">
-                    <img src="img/casa-barcelona.svg" alt="Ático en Barcelona">
-                    <h3>Ático con terraza</h3>
-                    <p class="fecha">15/09/2025 - Barcelona, España</p>
-                    <p class="precio">450.000€</p>
+                    <img src="img/casa-rural.jpg" alt="Casa rural reformada">
+                    <h3>Loft industrial reformado</h3>
+                    <p class="fecha">01/10/2025 - Madrid, España</p>
+                    <p class="precio">415.000€</p>
                 </a>
             </article>
             <article class="anuncio">
                 <a href="detalle.php?id=2">
-                    <img src="img/apartamento-sevilla.svg" alt="Apartamento en Sevilla">
+                    <img src="img/casa-rural.jpg" alt="Casa rural reformada">
                     <h3>Apartamento céntrico</h3>
                     <p class="fecha">12/09/2025 - Sevilla, España</p>
                     <p class="precio">800€/mes</p>
@@ -60,26 +100,26 @@ require_once __DIR__ . '/inc/menu.php';
             </article>
             <article class="anuncio">
                 <a href="detalle.php?id=3">
-                    <img src="img/chalet-malaga.svg" alt="Chalet en Málaga">
-                    <h3>Chalet con piscina</h3>
-                    <p class="fecha">10/09/2025 - Málaga, España</p>
-                    <p class="precio">320.000€</p>
+                    <img src="img/casa-rural.jpg" alt="Casa rural reformada">
+                    <h3>Loft industrial reformado</h3>
+                    <p class="fecha">01/10/2025 - Madrid, España</p>
+                    <p class="precio">415.000€</p>
                 </a>
             </article>
             <article class="anuncio">
                 <a href="detalle.php?id=4">
-                    <img src="img/oficina-bilbao.svg" alt="Oficina en Bilbao">
-                    <h3>Oficina moderna</h3>
-                    <p class="fecha">09/09/2025 - Bilbao, España</p>
-                    <p class="precio">1.200€/mes</p>
+                    <img src="img/casa-rural.jpg" alt="Casa rural reformada">
+                    <h3>Apartamento céntrico</h3>
+                    <p class="fecha">12/09/2025 - Sevilla, España</p>
+                    <p class="precio">800€/mes</p>
                 </a>
             </article>
             <article class="anuncio">
                 <a href="detalle.php?id=5">
-                    <img src="img/garaje-zaragoza.svg" alt="Garaje en Zaragoza">
-                    <h3>Plaza de garaje</h3>
-                    <p class="fecha">05/09/2025 - Zaragoza, España</p>
-                    <p class="precio">70€/mes</p>
+                    <img src="img/casa-rural.jpg" alt="Casa rural reformada">
+                    <h3>Loft industrial reformado</h3>
+                    <p class="fecha">01/10/2025 - Madrid, España</p>
+                    <p class="precio">415.000€</p>
                 </a>
             </article>
         </div>

@@ -20,11 +20,3 @@ $usuarioLogueado = isset($_SESSION['usuario']);
     <?php endif; ?>
 </nav>
 
-<?php if ($usuarioLogueado): ?>
-<div class="user-info">
-    <p>Conectado como <strong><?= htmlspecialchars($_SESSION['usuario'], ENT_QUOTES) ?></strong></p>
-    <?php if (!empty($_COOKIE['ultima_visita'])): ?>
-        <p>Última visita: <?= htmlspecialchars($_COOKIE['ultima_visita'], ENT_QUOTES) ?></p>
-    <?php endif; ?>
-</div>
-<?php endif; ?>

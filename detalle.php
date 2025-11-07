@@ -44,7 +44,15 @@ $ultimos = array_filter($ultimos, fn($t) => $t !== $titulo);
 $ultimos[] = $titulo;
 if (count($ultimos) > 5) array_shift($ultimos);
 
-setcookie('ultimos_anuncios', implode(',', $ultimos), time() + (90 * 24 * 60 * 60), "/", "", false, true);
+$secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+$cookieOptions = [
+    'expires' => time() + (90 * 24 * 60 * 60),
+    'path' => '/',
+    'secure' => $secure,
+    'httponly' => true,
+    'samesite' => 'Lax'
+];
+setcookie('ultimos_anuncios', implode(',', $ultimos), $cookieOptions);
 ?>
 
 <main>

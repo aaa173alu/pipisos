@@ -130,8 +130,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Rellena el formulario para solicitar tu folleto personalizado.</p>
 
         <section id="tablaTarifas">
-            <button id="toggleTarifas" type="button">Mostrar tarifas</button>
-            <div id="tarifasContainer" aria-hidden="true"></div>
+            <?php
+            // Controlar mostrar/ocultar tarifas mediante parámetro GET
+            $mostrarTarifas = isset($_GET['mostrar_tarifas']) && $_GET['mostrar_tarifas'] === '1';
+            ?>
+            
+            <form method="get" action="">
+                <?php if ($mostrarTarifas): ?>
+                    <button type="submit" name="mostrar_tarifas" value="0">Ocultar tarifas</button>
+                <?php else: ?>
+                    <button type="submit" name="mostrar_tarifas" value="1">Mostrar tarifas</button>
+                <?php endif; ?>
+            </form>
+
+            <?php if ($mostrarTarifas): ?>
+                <table>
+                    <caption>Tarifas de impresión de folletos</caption>
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Número de páginas</th>
+                            <th rowspan="2">Número de fotos</th>
+                            <th colspan="2">Blanco y negro</th>
+                            <th colspan="2">Color</th>
+                        </tr>
+                        <tr>
+                            <th>150–300 dpi</th>
+                            <th>450–900 dpi</th>
+                            <th>150–300 dpi</th>
+                            <th>450–900 dpi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // Definir tarifas en PHP
+                        $tarifas = [
+                            ['paginas' => 1, 'fotos' => 3, 'bn150' => 12.00, 'bn450' => 12.60, 'col150' => 13.50, 'col450' => 14.10],
+                            ['paginas' => 2, 'fotos' => 6, 'bn150' => 14.00, 'bn450' => 15.20, 'col150' => 17.00, 'col450' => 18.20],
+                            ['paginas' => 3, 'fotos' => 9, 'bn150' => 16.00, 'bn450' => 17.80, 'col150' => 20.50, 'col450' => 22.30],
+                            ['paginas' => 4, 'fotos' => 12, 'bn150' => 18.00, 'bn450' => 20.40, 'col150' => 24.00, 'col450' => 26.40],
+                            ['paginas' => 5, 'fotos' => 15, 'bn150' => 19.80, 'bn450' => 22.80, 'col150' => 27.30, 'col450' => 30.30],
+                            ['paginas' => 6, 'fotos' => 18, 'bn150' => 21.60, 'bn450' => 25.20, 'col150' => 30.70, 'col450' => 34.20],
+                            ['paginas' => 7, 'fotos' => 21, 'bn150' => 23.40, 'bn450' => 27.60, 'col150' => 33.90, 'col450' => 38.10],
+                            ['paginas' => 8, 'fotos' => 24, 'bn150' => 25.20, 'bn450' => 30.00, 'col150' => 37.20, 'col450' => 42.00],
+                            ['paginas' => 9, 'fotos' => 27, 'bn150' => 27.00, 'bn450' => 32.40, 'col150' => 40.50, 'col450' => 45.90],
+                            ['paginas' => 10, 'fotos' => 30, 'bn150' => 28.80, 'bn450' => 34.80, 'col150' => 43.80, 'col450' => 49.80]
+                        ];
+                        
+                        foreach ($tarifas as $tarifa):
+                        ?>
+                            <tr>
+                                <td><?= $tarifa['paginas'] ?></td>
+                                <td><?= $tarifa['fotos'] ?></td>
+                                <td><?= number_format($tarifa['bn150'], 2, ',', '.') ?> €</td>
+                                <td><?= number_format($tarifa['bn450'], 2, ',', '.') ?> €</td>
+                                <td><?= number_format($tarifa['col150'], 2, ',', '.') ?> €</td>
+                                <td><?= number_format($tarifa['col450'], 2, ',', '.') ?> €</td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
         </section>
 
         <section id="tablaFormulario">

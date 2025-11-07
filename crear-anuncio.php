@@ -1,4 +1,11 @@
 <?php
+require_once __DIR__ . '/inc/config.php';
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location: /pipisos/login.php');
+    exit;
+}
+
 $title = "Crear anuncio - PI";
 require_once __DIR__ . '/inc/header.php';
 require_once __DIR__ . '/inc/menu.php';
@@ -67,7 +74,7 @@ require_once __DIR__ . '/inc/menu.php';
             <input type="number" id="anio" name="anio" min="1800" max="2100"><br><br>
 
             <button type="submit">Crear anuncio</button>
-            <a href="/pipisos/index-Log.php">Cancelar</a>
+            <a href="/pipisos/index.php">Cancelar</a>
         </form>
     </section>
 </main>

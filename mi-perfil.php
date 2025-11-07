@@ -25,6 +25,7 @@ require_once __DIR__ . '/inc/menu.php';
         <div class="opciones-perfil">
             <h2>Gestión de cuenta</h2>
             <ul>
+                <li><a href="/pipisos/cambiar-estilo.php" class="btn"><span class="icon-adjust"></span> Cambiar estilo</a></li>
                 <li><a href="/pipisos/modificar-datos.php" class="btn"><span class="icon-user"></span> Modificar mis datos</a></li>
                 <li><a href="/pipisos/baja-usuario.php" class="btn btn-danger"><span class="icon-user-times"></span> Darse de baja</a></li>
             </ul>

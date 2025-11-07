@@ -1,4 +1,11 @@
 <?php
+require_once __DIR__ . '/inc/config.php';
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location: /pipisos/login.php');
+    exit;
+}
+
 $title = "Mis mensajes - PI";
 require_once __DIR__ . '/inc/header.php';
 require_once __DIR__ . '/inc/menu.php';
@@ -27,7 +34,7 @@ require_once __DIR__ . '/inc/menu.php';
       </tbody>
     </table>
 
-    <p><a href="/pipisos/index-Log.php">Volver al menú</a></p>
+  <p><a href="/pipisos/index.php">Volver al menú</a></p>
   </section>
 </main>
 

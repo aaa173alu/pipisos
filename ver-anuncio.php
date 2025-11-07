@@ -21,7 +21,7 @@ foreach ($anuncios as $a) {
 }
 
 if ($ad === null) {
-  echo '<main><section><h1>Anuncio no encontrado</h1><p>No existe el anuncio solicitado.</p><p><a href="/pipisos/index-Log.php">Volver</a></p></section></main>';
+  echo '<main><section><h1>Anuncio no encontrado</h1><p>No existe el anuncio solicitado.</p><p><a href="/pipisos/index.php">Volver</a></p></section></main>';
   require_once __DIR__ . '/inc/footer.php';
   exit;
 }
@@ -66,7 +66,7 @@ if ($ad === null) {
       <a href="/pipisos/anadir-foto.php?anuncio=<?php echo (int) $ad['id']; ?>">Añadir foto al anuncio</a> |
       <a href="/pipisos/mis-anuncios.php?user=<?php echo urlencode($ad['usuario'] ?? ''); ?>">Volver a mis anuncios</a>
       |
-      <a href="/pipisos/index-Log.php">Volver al menú</a>
+  <a href="/pipisos/index.php">Volver al menú</a>
     </p>
   </section>
 </main>
