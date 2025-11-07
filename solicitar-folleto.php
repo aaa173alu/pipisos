@@ -1,4 +1,5 @@
 <?php
+
 $title = "Solicitar folleto - PI";
 require_once __DIR__ . '/inc/header.php';
 require_once __DIR__ . '/inc/menu.php';
