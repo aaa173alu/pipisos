@@ -1,20 +1,17 @@
 <?php
-// login.php - validación en PHP usando data/usuarios.php
 session_start();
 
-// Inicializar valores y errores
 $userValue = '';
 $passValue = '';
 $userError = false;
 $passError = false;
 $errorMessages = [];
 
-// Si viene del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userValue = trim($_POST['user'] ?? '');
     $passValue = trim($_POST['pass'] ?? '');
+    $recordar = isset($_POST['recordar']);
 
-    // Validar campos vacíos
     if ($userValue === '') {
         $userError = true;
         $errorMessages[] = "El usuario no puede estar vacío.";
@@ -24,11 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errorMessages[] = "La contraseña no puede estar vacía.";
     }
 
-    // Si no hay errores de campos vacíos, comprobar credenciales
     if (empty($errorMessages)) {
-        // Cargar lista de usuarios desde tu archivo
         $usuarios = require __DIR__ . '/data/usuarios.php';
-
         $usuarioEncontrado = null;
         foreach ($usuarios as $u) {
             if ($u['user'] === $userValue) {
@@ -37,28 +31,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        if ($usuarioEncontrado) {
-            // Usuario existe → comprobar contraseña
-            if ($usuarioEncontrado['pass'] === $passValue) {
-                // ✅ Login correcto
-                session_regenerate_id(true);
-                $_SESSION['usuario'] = $userValue;
-                header('Location: /pipisos/index.php');
-                exit;
-            } else {
-                // ❌ Contraseña incorrecta
-                $passError = true;
-                $errorMessages[] = "Contraseña incorrecta.";
+        if ($usuarioEncontrado && $usuarioEncontrado['pass'] === $passValue) {
+            session_regenerate_id(true);
+            $_SESSION['usuario'] = $userValue;
+            $_SESSION['estilo'] = $usuarioEncontrado['estilo'];
+
+            if ($recordar) {
+                setcookie('recordar_usuario', $userValue, time() + (90 * 24 * 60 * 60), "/", "", false, true);
+                setcookie('recordar_estilo', $usuarioEncontrado['estilo'], time() + (90 * 24 * 60 * 60), "/", "", false, true);
+                setcookie('ultima_visita', date('d/m/Y H:i'), time() + (90 * 24 * 60 * 60), "/", "", false, true);
             }
+
+            header('Location: /pipisos/index.php');
+            exit;
         } else {
-            // ❌ Usuario no encontrado
-            $userError = true;
-            $errorMessages[] = "Usuario incorrecto.";
+            $errorMessages[] = "Usuario o contraseña incorrectos.";
+            $userError = $passError = true;
         }
     }
 }
 
-// A partir de aquí se imprime HTML
 require_once __DIR__ . '/inc/header.php';
 require_once __DIR__ . '/inc/menu.php';
 ?>
@@ -104,13 +96,17 @@ require_once __DIR__ . '/inc/menu.php';
       >
       <br><br>
 
+      <label>
+        <input type="checkbox" name="recordar" <?= isset($_POST['recordar']) ? 'checked' : '' ?>>
+        Recordarme en este equipo
+      </label>
+      <br><br>
+
       <button type="submit">Entrar</button>
       <button type="reset">Limpiar</button>
     </form>
 
-    <p>
-      <a href="/pipisos/registro.php">¿No tienes cuenta? Regístrate</a>
-    </p>
+    <p><a href="/pipisos/registro.php">¿No tienes cuenta? Regístrate</a></p>
   </section>
 </main>
 

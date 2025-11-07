@@ -1,3 +1,6 @@
+<?php
+$estilo = $_SESSION['estilo'] ?? $_COOKIE['recordar_estilo'] ?? 'estilos.css';
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pisos & Inmuebles</title>
 
-    <link rel="stylesheet" href="/pipisos/css/estilos.css" title="Modo claro">
+    <link rel="stylesheet" href="/pipisos/css/<?= htmlspecialchars($estilo, ENT_QUOTES) ?>">
     <link rel="alternate stylesheet" href="/pipisos/css/oscuro.css" title="Modo oscuro">
     <link rel="alternate stylesheet" href="/pipisos/css/contrastes.css" title="Modo contrastes">
     <link rel="alternate stylesheet" href="/pipisos/css/letraGrande.css" title="Modo letra grande">
@@ -37,5 +40,4 @@
 
         <input type="checkbox" id="menu-toggle" class="menu-toggle" />
         <label for="menu-toggle" class="menu-icon">☰</label>
-
     </header>

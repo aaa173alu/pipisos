@@ -5,13 +5,11 @@ $usuarioLogueado = isset($_SESSION['usuario']);
 
 <nav class="main-nav">
     <?php if (!$usuarioLogueado): ?>
-        <!-- Menú para usuarios NO logueados -->
         <a href="/pipisos/" class="btn">Inicio</a>
         <a href="/pipisos/busqueda.php" class="btn">Buscar</a>
         <a href="/pipisos/login.php" class="btn">Inicio de sesión</a>
         <a href="/pipisos/registro.php" class="btn">Registro</a>
     <?php else: ?>
-        <!-- Menú para usuarios logueados -->
         <a href="/pipisos/" class="btn">Inicio</a>
         <a href="/pipisos/busqueda.php" class="btn">Buscar</a>
         <a href="/pipisos/mi-perfil.php" class="btn">Mi perfil</a>
@@ -23,8 +21,10 @@ $usuarioLogueado = isset($_SESSION['usuario']);
 </nav>
 
 <?php if ($usuarioLogueado): ?>
-<form action="/pipisos/buscar.php" method="get" class="search" novalidate>
-    <input type="search" name="q" placeholder="Buscar..." />
-    <button type="submit">Buscar</button>
-</form>
+<div class="user-info">
+    <p>Conectado como <strong><?= htmlspecialchars($_SESSION['usuario'], ENT_QUOTES) ?></strong></p>
+    <?php if (!empty($_COOKIE['ultima_visita'])): ?>
+        <p>Última visita: <?= htmlspecialchars($_COOKIE['ultima_visita'], ENT_QUOTES) ?></p>
+    <?php endif; ?>
+</div>
 <?php endif; ?>
