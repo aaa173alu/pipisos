@@ -1,5 +1,4 @@
 <?php
-// solicitar-folleto.php — validación en servidor y errores inline por campo (sin JavaScript)
 $title = "Solicitar folleto - PI";
 require_once __DIR__ . '/inc/header.php';
 require_once __DIR__ . '/inc/menu.php';
