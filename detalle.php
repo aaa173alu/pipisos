@@ -1,7 +1,13 @@
 <?php
-$title = "Detalle anuncio - PI";
-require_once __DIR__ . '/inc/header.php';
-require_once __DIR__ . '/inc/menu.php';
+// Control de acceso: solo usuarios autenticados pueden ver detalle
+require_once __DIR__ . '/inc/config.php';
+
+if (!isset($_SESSION['usuario'])) {
+    // Flash message y redirección al login
+    $_SESSION['flash_message'] = 'Debes iniciar sesión para ver los detalles del anuncio.';
+    header('Location: /pipisos/login.php');
+    exit;
+}
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 1;
 
@@ -26,12 +32,15 @@ if ($ad === null) {
 }
 
 if ($ad === null) {
+    // No data available
+    require_once __DIR__ . '/inc/header.php';
+    require_once __DIR__ . '/inc/menu.php';
     echo '<main><section><h1>Detalle del anuncio</h1><p>No hay datos de anuncio disponibles.</p></section></main>';
     require_once __DIR__ . '/inc/footer.php';
     exit;
 }
 
-/* === Actualizar cookie de últimos anuncios === */
+/* === Actualizar cookie de últimos anuncios (solo usuarios autenticados) === */
 $titulo = $ad['titulo'] ?? "Anuncio $id";
 $ultimos = [];
 
@@ -53,6 +62,10 @@ $cookieOptions = [
     'samesite' => 'Lax'
 ];
 setcookie('ultimos_anuncios', implode(',', $ultimos), $cookieOptions);
+
+// Mostrar detalle (estructura y estilo existentes)
+require_once __DIR__ . '/inc/header.php';
+require_once __DIR__ . '/inc/menu.php';
 ?>
 
 <main>

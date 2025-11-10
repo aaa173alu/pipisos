@@ -77,6 +77,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require_once __DIR__ . '/inc/header.php';
 require_once __DIR__ . '/inc/menu.php';
+
+$flashMessage = '';
+if (isset($_SESSION['flash_message'])) {
+  $flashMessage = $_SESSION['flash_message'];
+  unset($_SESSION['flash_message']);
+} elseif (isset($_COOKIE['flash_message'])) {
+  $flashMessage = $_COOKIE['flash_message'];
+  $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+  setcookie('flash_message', '', [
+    'expires' => time() - 3600,
+    'path' => '/',
+    'secure' => $secure,
+    'httponly' => false,
+    'samesite' => 'Lax'
+  ]);
+}
 ?>
 
 <link rel="stylesheet" href="/pipisos/css/validation.css">

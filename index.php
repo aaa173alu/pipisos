@@ -92,7 +92,7 @@ require_once __DIR__ . '/inc/menu.php';
             </article>
             <article class="anuncio">
                 <a href="detalle.php?id=2">
-                    <img src="img/casa-rural.jpg" alt="Casa rural reformada">
+                    <img src="img/apartamento-sevilla.jpg" alt="Apartamento céntrico">
                     <h3>Apartamento céntrico</h3>
                     <p class="fecha">12/09/2025 - Sevilla, España</p>
                     <p class="precio">800€/mes</p>
@@ -108,7 +108,7 @@ require_once __DIR__ . '/inc/menu.php';
             </article>
             <article class="anuncio">
                 <a href="detalle.php?id=4">
-                    <img src="img/casa-rural.jpg" alt="Casa rural reformada">
+                    <img src="img/apartamento-sevilla.jpg" alt="Apartamento céntrico">
                     <h3>Apartamento céntrico</h3>
                     <p class="fecha">12/09/2025 - Sevilla, España</p>
                     <p class="precio">800€/mes</p>

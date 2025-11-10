@@ -3,6 +3,4 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
-// Otras configuraciones globales pueden ir aquí
 ?>
